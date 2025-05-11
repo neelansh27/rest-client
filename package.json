@@ -9,22 +9,38 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@azure/app-configuration": "^1.9.0",
+    "@azure/identity": "^4.9.1",
+    "@azure/keyvault-secrets": "^4.9.0",
     "@codemirror/lang-json": "^6.0.1",
     "@codemirror/lint": "^6.8.5",
+    "@mikro-orm/core": "^6.4.15",
+    "@mikro-orm/postgresql": "^6.4.15",
     "@uiw/react-codemirror": "^4.23.12",
     "clsx": "^2.1.1",
+    "mariadb": "^3.4.2",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
+    "oci-common": "^2.108.0",
+    "oci-objectstorage": "^2.108.0",
+    "oci-secrets": "^2.108.0",
+    "pg": "^8.15.6",
+    "pg-query-stream": "^4.9.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0"
   },
   "devDependencies": {
+    "@mikro-orm/cli": "^6.4.15",
+    "@mikro-orm/migrations": "^6.4.15",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^16.5.0",
+    "oracledb": "^6.8.0",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
