@@ -6,6 +6,8 @@ import {HttpMethod, Pair} from "@/lib/definitions";
 import ResponseWindow from "@/components/ResponseWindow";
 import SendRequest from "@/components/SendRequest";
 import RequestOptions from "@/components/RequestOptions";
+import Sidebar from "@/components/Sidebar";
+import {FiMenu} from "react-icons/fi";
 
 export default function RestClient() {
     const [url, setUrl] = useState<string>("");
@@ -14,6 +16,7 @@ export default function RestClient() {
     const [body, setBody] = useState<Object | null>(null);
     const [headers, setHeaders] = useState<Pair[]>([]);
     const [params, setParams] = useState<Pair[]>([]);
+    const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const onUrlChange = (url: string) => {
@@ -95,12 +98,21 @@ export default function RestClient() {
             setBody(JSON.parse(value));
         } catch (e) {}
     }
+
+    // sidebar handling
+    const openSidebar = (value: boolean) => {
+        setSideBarOpen(value);
+    }
     return (
         <>
             <div className={clsx(
                 "grid grid-cols-1 lg:grid-cols-2 w-full h-screen"
             )}>
+                <Sidebar open={sideBarOpen} setOpen={openSidebar}/>
                 <div className={"w-full"}>
+                    <div className={"flex text-xl px-2 py-3"}>
+                        <FiMenu className={"text-white cursor-pointer"} onClick={()=>openSidebar(true)}/>
+                    </div>
                     <URInput url={url} method={method} onUrlChange={onUrlChange} onMethodChange={onMethodChange}/>
                     <SendRequest onBtnClick={sendRequest} isLoading={isLoading}/>
                     <RequestOptions headers={headers} params={params} body={body} addRow={addRow} updateRow={updateRow} deleteRow={deleteRow} updateBody={handleBodyChange}/>
