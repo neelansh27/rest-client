@@ -26,12 +26,40 @@ export default function RestClient() {
 
     const sendRequest = async () => {
         setIsLoading(true);
-        const res = await fetch(url, {
-            method: method,
-        })
-        const data = await res.json();
-        setResData(data);
-        setIsLoading(false);
+        const reqUrl = new URL(url);
+
+        // Adding query parameters
+        for (const param of params) {
+            if (param.key && param.value) {
+                reqUrl.searchParams.append(param.key, param.value);
+            }
+        }
+
+        // Preparing header object
+        const headersObj = new Headers();
+        for (const header of headers) {
+            if (header.key && header.value) {
+                headersObj.append(header.key, header.value);
+            }
+        }
+        // Sending request
+        try {
+            const res = await fetch(reqUrl.toString(), {
+                method: method,
+                headers: headersObj,
+                body: method==="GET" ? null:JSON.stringify(body)
+            })
+            if (res.ok) {
+                const data = await res.json();
+                setResData(data);
+            } else {
+                setResData({ statusCode: res.status, response: await res.text() });
+            }
+        } catch (e) {
+            setResData({ error: e });
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     // Functions to handle Header and Query Params input
