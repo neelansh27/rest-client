@@ -12,6 +12,8 @@ export async function GET(request: NextRequest, { params } : { params: { userId:
 
     const history = await em.find(RequestHistory,{
         user_id: userId
+    }, {
+        orderBy: {id: 'desc'},
     });
     return NextResponse.json(history);
 }

@@ -1,5 +1,5 @@
 'use client';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import URInput from "@/components/Inputs/URLInput";
 import clsx from "clsx";
 import {HttpMethod, Pair} from "@/lib/definitions";
@@ -36,9 +36,26 @@ export default function RestClient() {
     const [headers, setHeaders] = useState<Pair[]>([]);
     const [params, setParams] = useState<Pair[]>([]);
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
+    const [history, setHistory] = useState<Object[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const {data:session, status} = useSession();
-    console.log(session, status);
+
+    useEffect(()=>{
+        if (!session?.user?.id) return;
+        console.log("here")
+        fetch(`/api/users/${session.user.id}/req-history`)
+            .then(res => res.json())
+            .then(data=> {
+                console.log(data);
+                setHistory(data.map((item: any) => {
+                    item.headers = JSON.parse(item.headers || "[]");
+                    item.params = JSON.parse(item.queryParams || "[]");
+                    item.body = JSON.parse(item.body || {});
+                    return item;
+                }));
+            }).catch(e=>console.log(e));
+    },[session])
+
     const onUrlChange = (url: string) => {
         setUrl(url);
     }
@@ -67,7 +84,11 @@ export default function RestClient() {
         }
         // Sending request
         try {
-            await saveInHistory(session?.user?.id,reqUrl.toString(), method, headers, params, body)
+            if (session?.user?.id) {
+                setHistory([{url: reqUrl.toString(), method, headers, params, body}, ...history]);
+                console.log(history,'asd');
+                await saveInHistory(session?.user?.id,reqUrl.toString(), method, headers, params, body)
+            }
             const res = await fetch(reqUrl.toString(), {
                     method: method,
                     headers: headersObj,
@@ -124,12 +145,22 @@ export default function RestClient() {
     const openSidebar = (value: boolean) => {
         setSideBarOpen(value);
     }
+
+    const loadHistory = (index: number) => {
+        const h = history[index];
+        setParams(h.params || []);
+        setHeaders(h.headers || []);
+        setMethod(h.method);
+        setUrl(h.url);
+        setBody(h.body || {})
+        setSideBarOpen(false);
+    }
     return (
         <>
             <div className={clsx(
                 "grid grid-cols-1 lg:grid-cols-2 w-full h-screen"
             )}>
-                <Sidebar open={sideBarOpen} setOpen={openSidebar}/>
+                <Sidebar open={sideBarOpen} setOpen={openSidebar} history={history} loadHistory={loadHistory}/>
                 <div className={"w-full"}>
                     <div className={"flex text-xl px-2 py-3"}>
                         <FiMenu className={"text-white cursor-pointer"} onClick={()=>openSidebar(true)}/>
