@@ -161,7 +161,7 @@ export default function RestClient() {
                 "grid grid-cols-1 lg:grid-cols-2 w-full h-screen"
             )}>
                 <Sidebar open={sideBarOpen} setOpen={openSidebar} history={history} loadHistory={loadHistory}/>
-                <div className={"w-full"}>
+                <div className={"w-full  px-4 md:px-8"}>
                     <div className={"flex text-xl px-2 py-3"}>
                         <FiMenu className={"text-white cursor-pointer"} onClick={()=>openSidebar(true)}/>
                     </div>
