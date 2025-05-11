@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import {getOrm} from "@/lib/orm";
-import {User} from "@/entities/User";
+import {defaultEntities} from "@auth/mikro-orm-adapter";
+const {User} = defaultEntities;
 
 export async function GET(req: NextRequest) {
     const orm = await getOrm();

@@ -8,6 +8,25 @@ import SendRequest from "@/components/SendRequest";
 import RequestOptions from "@/components/RequestOptions";
 import Sidebar from "@/components/Sidebar";
 import {FiMenu} from "react-icons/fi";
+import {useSession} from "next-auth/react";
+
+async function saveInHistory(userId: string, reqUrl: string, method: HttpMethod, headers: Pair[], params: Pair[], body:Object | null) {
+    if (!userId) return;
+    const url = `/api/users/${userId}/req-history`;
+    await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            url:reqUrl,
+            method,
+            headers: JSON.stringify(headers),
+            queryParams: JSON.stringify(params),
+            body: JSON.stringify(body)
+        })
+    })
+}
 
 export default function RestClient() {
     const [url, setUrl] = useState<string>("");
@@ -18,7 +37,8 @@ export default function RestClient() {
     const [params, setParams] = useState<Pair[]>([]);
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
+    const {data:session, status} = useSession();
+    console.log(session, status);
     const onUrlChange = (url: string) => {
         setUrl(url);
     }
@@ -47,11 +67,12 @@ export default function RestClient() {
         }
         // Sending request
         try {
+            await saveInHistory(session?.user?.id,reqUrl.toString(), method, headers, params, body)
             const res = await fetch(reqUrl.toString(), {
-                method: method,
-                headers: headersObj,
-                body: method==="GET" ? null:JSON.stringify(body)
-            })
+                    method: method,
+                    headers: headersObj,
+                    body: method==="GET" ? null:JSON.stringify(body)
+                });
             if (res.ok) {
                 const data = await res.json();
                 setResData(data);

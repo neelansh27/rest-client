@@ -1,6 +1,6 @@
 import {Entity, ManyToOne, PrimaryKey, Property} from "@mikro-orm/core";
-import {User} from "@/entities/User";
-
+import { defaultEntities } from "@auth/mikro-orm-adapter";
+const { User } = defaultEntities;
 @Entity()
 export class RequestHistory {
     @PrimaryKey()
@@ -27,5 +27,5 @@ export class RequestHistory {
             fieldName: 'user_id',
             nullable: false,
     })
-    user!: User;
+    user!: typeof User;
 }
