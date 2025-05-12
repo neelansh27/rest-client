@@ -1,8 +1,8 @@
+export const dynamic = 'force-dynamic';
+import 'reflect-metadata';
 import { NextRequest, NextResponse } from "next/server";
 import {getOrm} from "@/lib/orm";
-import {defaultEntities} from "@auth/mikro-orm-adapter";
-const {User} = defaultEntities;
-
+import { User } from "@/entities/User";
 export async function GET(req: NextRequest) {
     const orm = await getOrm();
     const em = orm.em.fork();

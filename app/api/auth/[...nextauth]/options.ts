@@ -2,33 +2,14 @@ import type { NextAuthOptions } from 'next-auth'
 import GithubProvider from 'next-auth/providers/github';
 import { MikroOrmAdapter } from "@auth/mikro-orm-adapter";
 import config from "@/mikro-orm.config";
-import { defaultEntities as AuthEntities } from "@auth/mikro-orm-adapter";
-// import { RequestHistory } from "@/entities/RequestHistory";
-// import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const options: NextAuthOptions = {
-    adapter: MikroOrmAdapter(config, {
-        entities: AuthEntities
-    }),
+    adapter: MikroOrmAdapter(config),
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_CLIENTID!,
             clientSecret: process.env.GITHUB_SECRET!,
         }),
-        // CredentialsProvider({
-        //     name: "Credentials",
-        //     credentials: {
-        //         username: {
-        //             label: "Username",
-        //             type: "text",
-        //             placeholder: "Please enter you username",
-        //         },
-        //         // password: {}
-        //         async authorize(credentials) {
-        //
-        //         }
-        //     }
-        // })
     ],
     callbacks: {
         async session({session, user}) {

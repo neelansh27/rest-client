@@ -6,7 +6,7 @@ export interface Pair {
 }
 
 export interface HistoryItem {
-    id?: string;
+    id?: number;
     url: string;
     method: HttpMethod;
     headers: Pair[];

@@ -1,16 +1,15 @@
+export const dynamic = 'force-dynamic';
+import 'reflect-metadata';
 import {NextRequest, NextResponse} from "next/server";
 import {RequestHistory} from "@/entities/RequestHistory";
-import { defaultEntities } from "@auth/mikro-orm-adapter";
+import { User } from "@/entities/User";
 import {getOrm} from "@/lib/orm";
-
-const {User} = defaultEntities;
-
 export async function GET(request: NextRequest, {params}: { params: Promise<{ userId: string }>} ) {
     const orm = await getOrm();
     const em = orm.em.fork();
     const {userId} = await params;
 
-    const user = await em.findOne(User, userId);
+    const user = await em.findOne(User, {id: userId});
     if (!user) {
         return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
@@ -28,7 +27,7 @@ export async function POST(request: NextRequest, {params}: { params: Promise<{ u
     const em = orm.em.fork();
     const { userId } = await params;
     const {url, method, headers, queryParams, body} = await request.json();
-    const user = await em.findOne(User, userId);
+    const user = await em.findOne(User, { id: userId });
     if (!user) {
         return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
