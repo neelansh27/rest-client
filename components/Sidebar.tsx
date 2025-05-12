@@ -3,10 +3,12 @@ import { useSession } from "next-auth/react";
 import {PiSignIn, PiSignOut} from "react-icons/pi";
 import {useEffect, useRef} from "react";
 import clsx from "clsx";
+import {HistoryItem} from "@/lib/definitions";
+
 interface SidebarProps {
     setOpen: (open: boolean) => void;
     open: boolean;
-    history: Object[];
+    history: HistoryItem[];
     loadHistory: (index:number) => void;
 }
 export default function Sidebar({ setOpen, open, history, loadHistory }: SidebarProps) {

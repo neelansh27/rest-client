@@ -2,7 +2,7 @@
 import {useEffect, useState} from "react";
 import URInput from "@/components/Inputs/URLInput";
 import clsx from "clsx";
-import {HttpMethod, Pair} from "@/lib/definitions";
+import {HistoryItem, HttpMethod, Pair} from "@/lib/definitions";
 import ResponseWindow from "@/components/ResponseWindow";
 import SendRequest from "@/components/SendRequest";
 import RequestOptions from "@/components/RequestOptions";
@@ -36,7 +36,7 @@ export default function RestClient() {
     const [headers, setHeaders] = useState<Pair[]>([]);
     const [params, setParams] = useState<Pair[]>([]);
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
-    const [history, setHistory] = useState<Object[]>([]);
+    const [history, setHistory] = useState<HistoryItem[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const {data:session, status} = useSession();
 
@@ -147,7 +147,7 @@ export default function RestClient() {
     }
 
     const loadHistory = (index: number) => {
-        const h = history[index];
+        const h:HistoryItem = history[index];
         setParams(h.params || []);
         setHeaders(h.headers || []);
         setMethod(h.method);

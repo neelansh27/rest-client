@@ -1,24 +1,26 @@
-import {Entity, ManyToOne, PrimaryKey, Property} from "@mikro-orm/core";
+import { Entity, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
 import { defaultEntities } from "@auth/mikro-orm-adapter";
+
 const { User } = defaultEntities;
+
 @Entity()
 export class RequestHistory {
     @PrimaryKey()
     id!: number;
 
-    @Property()
+    @Property({ type: 'string' })
     url!: string;
 
-    @Property()
+    @Property({ type: 'string' })
     method!: string;
 
-    @Property({ length: 500 })
+    @Property({ type: 'string', length: 500 })
     headers!: string;
 
-    @Property({ length: 500 })
+    @Property({ type: 'string', length: 500 })
     params!: string;
 
-    @Property({ length: 500 })
+    @Property({ type: 'string', length: 500 })
     body!: string;
 
     @ManyToOne(
@@ -26,6 +28,9 @@ export class RequestHistory {
         {
             fieldName: 'user_id',
             nullable: false,
-    })
-    user!: typeof User;
+        })
+    user!: InstanceType<typeof User>;
+
+    @Property({ type: 'date', onCreate: () => new Date() })
+    createdAt = new Date();
 }

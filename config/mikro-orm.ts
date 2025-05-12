@@ -1,6 +1,6 @@
 import { RequestHistory } from "@/entities/RequestHistory";
-import { defineConfig } from "@mikro-orm/postgresql";
 import { defaultEntities as AuthEntities } from "@auth/mikro-orm-adapter";
+import { defineConfig } from "@mikro-orm/postgresql";
 import { Migrator } from "@mikro-orm/migrations";
 
 const config = defineConfig({
@@ -12,6 +12,9 @@ const config = defineConfig({
     extensions: [
         Migrator,
     ],
+    discovery: {
+        checkDuplicateTableNames:false,
+    },
     migrations: {
         path: "./migrations",
     },
