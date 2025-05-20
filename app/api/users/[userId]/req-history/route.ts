@@ -1,4 +1,3 @@
-export const dynamic = 'force-dynamic';
 import 'reflect-metadata';
 import {NextRequest, NextResponse} from "next/server";
 import {RequestHistory} from "@/entities/RequestHistory";

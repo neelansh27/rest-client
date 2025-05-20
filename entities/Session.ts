@@ -1,4 +1,3 @@
-// entities/Session.ts
 import {
     Entity,
     PrimaryKey,
@@ -21,5 +20,5 @@ export class Session {
     expires!: Date;
 
     @ManyToOne(() => User, { fieldName: 'user_id' })
-    user!: User;
+    user!: typeof User;
 }

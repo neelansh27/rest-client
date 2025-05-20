@@ -1,13 +1,8 @@
-// entities/User.ts
 import {
     Entity,
     PrimaryKey,
     Property,
-    OneToMany,
-    Collection,
 } from '@mikro-orm/core';
-import { Account } from '@/entities/Account';
-import { Session } from '@/entities/Session';
 
 @Entity({ tableName: 'user' })
 export class User {

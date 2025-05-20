@@ -1,4 +1,3 @@
-// entities/Account.ts
 import {
     Entity,
     PrimaryKey,
@@ -42,5 +41,5 @@ export class Account {
     id_token?: string;
 
     @ManyToOne(() => User, { fieldName: 'user_id' })
-    user!: User;
+    user!: typeof User;
 }

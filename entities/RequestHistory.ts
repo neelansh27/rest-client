@@ -1,4 +1,5 @@
 import { Entity, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
+import type { Rel } from "@mikro-orm/core";
 import {User} from "@/entities/User";
 
 @Entity()
@@ -27,7 +28,7 @@ export class RequestHistory {
             fieldName: 'user_id',
             nullable: false,
         })
-    user!: User;
+    user!: Rel<User>;
 
     @Property({ type: 'date', onCreate: () => new Date() })
     createdAt = new Date();
