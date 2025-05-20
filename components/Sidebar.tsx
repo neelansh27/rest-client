@@ -44,7 +44,7 @@ export default function Sidebar({ setOpen, open, history, loadHistory }: Sidebar
             <div className={"h-full overflow-y-auto"} style={{ scrollbarWidth: "none" }}>
             <ul className={"flex flex-col gap-2"}>
                 <li className={"text-center text-xl font-bold"}>History</li>
-                { history?.length>0 && status==="authenticated" ? history.map((item, index) => {
+                { status==="authenticated" ? history.length===0 ? <li className={"text-center"}>Start sending requests to see history</li>:history.map((item, index) => {
                     return (
                         <li key={index} onClick={()=>loadHistory(index)} className={"mx-3 flex overflow-x-auto whitespace-nowrap py-2 gap-2 cursor-pointer"} style={{ scrollbarWidth: "none" }}>
                             <span className={"font-bold"}>{item.method}</span>
