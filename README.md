@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# REST Client
+
+A REST client application built with **Next.js**, **MikroORM**, and **TypeScript**. This project is designed to serve as a lightweight and extensible client for interacting with REST APIs while leveraging a robust backend powered by MikroORM and PostgreSQL. 
+
+The project is structured to support authentication, database persistence, and integration with multiple credentials.
+
+---
+
+## Features
+
+- **Next.js 15**: Modern framework combining frontend and backend in one, enabling fast SSR and API handling.
+- **TypeScript**: Type-safe development for fewer runtime errors and more maintainable code.
+- **MikroORM**: Fully type-safe ORM with support for entity modeling using TypeScript decorators, schema migrations, and multiple database drivers (like PostgreSQL).
+- **NextAuth**: Seamless authentication and session management out of the box.
+- **CodeMirror**: Rich JSON editor for crafting requests and viewing responses with validation.
+- **TailwindCSS**: Utility-first styling for rapid and consistent UI development.
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+* Node.js (>= 18)
+* PostgreSQL
+* A `.env` file with the necessary configuration (database connection, auth secrets, etc.)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/neelansh27/rest-client.git
+   cd rest-client
+   ```
 
-## Learn More
+2. Install dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Set up your environment variables in a `.env` file. For example:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```env
+   DATABASE_URL=postgresql://user:password@localhost:5432/rest-client
+   NEXTAUTH_SECRET=your-secret-key
+   NEXTAUTH_URL=http://localhost:3000
+   GITHUB_SECRET=github-secret
+   GITHUB_CLIENTID=client-id
+   ```
 
-## Deploy on Vercel
+4. Run database migrations with MikroORM:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npx mikro-orm migration:up
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+The application will be available at [http://localhost:3000](http://localhost:3000).
+
+---
+
+## Available Scripts
+
+* `npm run dev` – Start the development server.
+* `npm run build` – Build the production-ready application.
+* `npm run lint` – Run ESLint checks.
+
+---
+
+## Technology Stack
+
+* **Frontend**: Next.js, React, TailwindCSS, CodeMirror
+* **Backend**: Next.js API routes, MikroORM, PostgreSQL
+* **Authentication**: NextAuth
+
+---
+
+## Contributing
+
+Contributions are welcome. If you would like to add new features, improve documentation, or fix bugs, please fork the repository and open a pull request.
