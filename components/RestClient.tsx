@@ -87,7 +87,7 @@ export default function RestClient() {
             if (session?.user?.id) {
                 setHistory([{url: reqUrl.toString(), method, headers, params, body}, ...history]);
                 console.log(history,'asd');
-                await saveInHistory(session?.user?.id,reqUrl.toString(), method, headers, params, body)
+                await saveInHistory(session.user.id,reqUrl.toString(), method, headers, params, body)
             }
             const res = await fetch(reqUrl.toString(), {
                     method: method,

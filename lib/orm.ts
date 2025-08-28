@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import config from "@/mikro-orm.config";
-import {GeneratedCacheAdapter, MikroORM} from "@mikro-orm/postgresql";
+import {MikroORM} from "@mikro-orm/postgresql";
 
 let orm: MikroORM | null = null;
 
