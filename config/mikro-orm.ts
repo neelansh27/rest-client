@@ -9,6 +9,9 @@ console.log([RequestHistory, User, Account, Session, VerificationToken])
 
 const config = defineConfig({
     clientUrl: process.env.DATABASE_URL,
+    driverOptions: {
+        connection: { ssl: true }
+    },
     entities: [RequestHistory, User, Account, Session, VerificationToken],
     debug: process.env.DEBUG === "true",
     extensions: [
