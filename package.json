@@ -8,7 +8,7 @@
     "start": "NODE_ENV=production next start",
     "lint": "next lint"
   },
-  "mikro-orm" :  {
+  "mikro-orm": {
     "useTsNode": true,
     "configPaths": [
       "./**/mikro.config.*"
@@ -26,7 +26,7 @@
     "@uiw/react-codemirror": "^4.23.12",
     "clsx": "^2.1.1",
     "mariadb": "^3.4.2",
-    "next": "15.3.2",
+    "next": "15.3.6",
     "next-auth": "^4.24.11",
     "oci-common": "^2.108.0",
     "oci-objectstorage": "^2.108.0",
